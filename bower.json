@@ -1,0 +1,26 @@
+{
+  "name": "dalmo",
+  "version": "0.0.1",
+  "authors": [
+    "hikarock <i@hika69.com>"
+  ],
+  "description": "Simple modal window jQuery-plugin for smart phone.",
+  "main": "jquery.dalmo.min.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "jquery",
+    "modal",
+    "plugin"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/hikarock/dalmo",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

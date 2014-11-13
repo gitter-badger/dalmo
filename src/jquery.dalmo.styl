@@ -1,0 +1,97 @@
+@import 'nib'
+
+border-color   = #eee
+bg-color       = #fff
+text-color     = #333
+btn-text-color = #3462ff
+elm-height     = 44px
+width          = 300px
+font-size      = 18px
+z-index        = 20000
+border-solid   = 1px solid border-color
+
+.dalmo
+  box-sizing: border-box
+  font-family: sans-serif
+  opacity: 0.95
+  z-index: z-index
+  position: fixed
+  left: 50%
+  width: width
+  margin-left: -(width / 2)
+  margin-top: -(elm-height * 3 / 2)
+  padding: 0
+  color: text-color
+
+  header
+    box-sizing: border-box
+    padding: 0
+    height: elm-height
+    border: border-solid
+    border-bottom: none
+    background-color: bg-color
+    border-radius: top 9px
+
+    h1
+      overflow: ellipsis
+      background: none
+      line-height: elm-height
+      padding: 0 35px
+      text-align: center
+      font-size: font-size
+      font-weight: bold
+      color: text-color
+
+  .body
+    box-sizing: border-box
+    border-left: border-solid
+    border-right: border-solid
+    background-color: bg-color
+    min-height: elm-height
+    font-size: font-size * 0.75
+    text-align: center
+    overflow-y: scroll
+    overflow-scrolling: touch
+    color: text-color
+
+  footer
+    box-sizing: border-box
+    background-color: bg-color
+    border-radius: bottom 9px
+    border: border-solid
+    min-height: elm-height
+    padding: 0
+    button
+      overflow: ellipsis
+      font-size: font-size
+      color: btn-text-color
+      background: none
+      text-align: center
+      width: 100%
+      padding: 0 0.5em
+      margin: 0
+      border: 0
+      height: elm-height
+      &.default
+        font-weight: bold
+        color: btn-text-color
+      &.cnt-2
+        width: 50%
+        float: left
+        &:first-child
+          border-right: border-solid
+      &.cnt-3
+        border-bottom: border-solid
+        &:last-child
+          border-bottom: none
+
+.dalmo-overray
+  position: fixed
+  opacity: 0.1
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  background-color: #000
+  z-index: z-index - 1
+
