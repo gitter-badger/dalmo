@@ -8,7 +8,7 @@ elm-height     = 44px
 width          = 300px
 font-size      = 18px
 z-index        = 20000
-border-solid   = 1px solid border-color
+border-solid   = 0.5px solid border-color
 
 .dalmo
   box-sizing: border-box
@@ -27,8 +27,6 @@ border-solid   = 1px solid border-color
     box-sizing: border-box
     padding: 0
     height: elm-height
-    border: border-solid
-    border-bottom: none
     background-color: bg-color
     border-radius: top 9px
 
@@ -44,8 +42,6 @@ border-solid   = 1px solid border-color
 
   .body
     box-sizing: border-box
-    border-left: border-solid
-    border-right: border-solid
     background-color: bg-color
     min-height: elm-height
     font-size: font-size * 0.75
@@ -53,12 +49,13 @@ border-solid   = 1px solid border-color
     overflow-y: scroll
     overflow-scrolling: touch
     color: text-color
+    padding: 0 1.0em 1.0em 1.0em
 
   footer
     box-sizing: border-box
     background-color: bg-color
     border-radius: bottom 9px
-    border: border-solid
+    border-top: border-solid
     min-height: elm-height
     padding: 0
     button
@@ -86,12 +83,7 @@ border-solid   = 1px solid border-color
           border-bottom: none
 
 .dalmo-overray
-  position: fixed
-  opacity: 0.1
-  top: 0
-  left: 0
-  width: 100%
-  height: 100%
+  -webkit-filter: blur(15px);
+  opacity: 0.2
   background-color: #000
-  z-index: z-index - 1
 

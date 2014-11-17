@@ -16,8 +16,8 @@
     this.isShown = false;
   };
 
-  Dalmo.VERSION = '0.0.1';
-  Dalmo.isShown = false;
+  Dalmo.isShown  = false;
+  Dalmo.VERSION  = '0.0.1';
   Dalmo.DEFAULTS = {
     modeless: false
   };
@@ -27,12 +27,11 @@
       return this.each(function() {
 
         var $this = $(this);
-        var options  = $.extend({}, Dalmo.DEFAULTS, typeof option == 'object' && option);
-        var dalmo = new Dalmo(this, options);
-
+        var options  = $.extend({}, Dalmo.DEFAULTS,
+                                typeof option == 'object' && option);
         var selector = $this.data('target');
 
-        Dalmo.$modal = createModal(selector, options);
+        Dalmo.$modal = createModal(selector);
 
         $this.on('click', function(evt) {
           evt.preventDefault();
@@ -43,17 +42,24 @@
           var $modal = Dalmo.$modal.find('.dalmo');
           calcHeight($modal);
 
-          $(window).on('resize', function(evt) {
+          $(window).on('resize', function() {
             console.log('resize');
             calcHeight($modal);
           });
 
-          $(window).on('orientationchange', function(evt) {
+          $(window).on('orientationchange', function() {
             console.log('orientationchange');
             calcHeight($modal);
           });
 
-          Dalmo.$modal.find('.dalmo-overray')
+          var close = function() {
+            Dalmo.$modal.hide();
+            Dalmo.isShown = false;
+            $('.dalmo-overray').removeClass('dalmo-overray');
+            $(window).off('.noScroll');
+          };
+
+          $('.dalmo-overray')
           .off('click')
           .on('click', function(evt) {
             evt.preventDefault();
@@ -67,26 +73,26 @@
             close();
           });
 
-          $(window).on('touchmove.noScroll', function(evt) {
-            if ($(evt.target).hasClass('body')) {
-              return;
-            }
-            evt.preventDefault();
-          });
+          if (!options.modeless) {
+            $(window).on('touchmove.noScroll', function(evt) {
+              if ($(evt.target).hasClass('body')) {
+                return;
+              }
+              evt.preventDefault();
+            });
+            $('body')
+              .children()
+              .not('.dalmo-container')
+              .addClass('dalmo-overray');
+          }
         });
       });
     }
   });
 
-  function close() {
-    Dalmo.$modal.hide();
-    Dalmo.isShown = false;
-    $(window).off('.noScroll');
-  }
+  var createModal = function(selector) {
 
-  function createModal(selector, options) {
-
-    var $modal, $overray, $wrapper;
+    var $modal, $wrapper;
 
     if ($(selector).length < 1) {
       // error
@@ -101,24 +107,19 @@
       count = 3;
     }
 
-    $buttons.each(function(i) {
+    $buttons.each(function() {
       $(this).addClass('cnt-' + count);
     });
 
     $modal = $('<div>').addClass('dalmo').append($(selector).html());
-    $wrapper = $('<div>').append($modal);
-
-    if (!options.modeless) {
-      $overray = $('<div>').addClass('dalmo-overray');
-      $wrapper.append($overray);
-    }
+    $wrapper = $('<div>').addClass('dalmo-container').append($modal);
 
     $('body').append($wrapper.hide());
 
     return $wrapper;
-  }
+  };
 
-  function calcHeight($modal) {
+  var calcHeight = function($modal) {
 
     var height        = $modal.height(),
         maxHeight     = Math.round($(window).height() * 0.8),
@@ -141,7 +142,7 @@
     });
 
     return $modal;
-  }
+  };
 
 })(jQuery);
 
